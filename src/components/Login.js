@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import {axiosWithAuth} from "../helpers/axiosWithAuth";
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -18,12 +18,13 @@ const Login = () => {
             username: userCredentials.username,
             password: userCredentials.password
         }
-        axios.post('http://localhost:5000/api/login', user)
+        axiosWithAuth()
+            .post('/login', user)
             .then(response => {
                 localStorage.setItem('token', response.data.payload)
                 history.push('bubbles-page')
             })
-            .catch(error => console.log(error.message))
+            .catch(error => setError(error.message))
 
     }
 

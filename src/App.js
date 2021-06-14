@@ -1,23 +1,30 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from "react";
+import {BrowserRouter as Router, Route, useHistory} from "react-router-dom";
 import PrivateRoute from './components/PrivateRoute';
 import Login from "./components/Login";
 import "./styles.scss";
 import BubblePage from "./components/BubblePage";
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <header>
-          Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href="#">logout</a>
-        </header> 
-        <PrivateRoute path={'/bubbles-page'} component={BubblePage}/>
-        <Route exact path="/" component={Login} />
-      </div>
-    </Router>
-  );
+    const history = useHistory();
+    const handleLogout = (event) => {
+        event.preventDefault();
+        history.push('/')
+        localStorage.clear()
+    }
+
+    return (
+        <Router>
+            <div className="App">
+                <header>
+                    Color Picker Sprint Challenge
+                    <a data-testid="logoutButton" href="#">logout</a>
+                </header>
+                <PrivateRoute path={'/bubbles-page'} component={BubblePage}/>
+                <Route exact path="/" component={Login}/>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
