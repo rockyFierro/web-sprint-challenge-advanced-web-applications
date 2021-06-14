@@ -8,8 +8,6 @@ import BubblePage from "./components/BubblePage";
 function App() {
     const history = useHistory();
     const handleLogout = (event) => {
-        event.preventDefault();
-        history.push('/')
         localStorage.clear()
     }
 
