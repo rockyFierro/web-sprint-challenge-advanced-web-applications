@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
+    const history = useHistory();
+
     const [userCredentials, setUserCredentials ] = useState({
         username: '',
         password: ''
@@ -16,8 +19,12 @@ const Login = () => {
             password: userCredentials.password
         }
         axios.post('http://localhost:5000/api/login', user)
-            .then(response => localStorage.setItem('token', response.data.payload))
+            .then(response => {
+                localStorage.setItem('token', response.data.payload)
+                history.push('bubbles-page')
+            })
             .catch(error => console.log(error.message))
+
     }
 
     const handleChanges = (event) => {
