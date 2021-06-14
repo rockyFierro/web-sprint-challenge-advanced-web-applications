@@ -1,19 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 
 const Login = () => {
+    const [userCredentials, setUserCredentials ] = useState({
+        username: '',
+        password: ''
+    })
+    const [error, setError] = useState('')
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const user = {
+            username: userCredentials.username,
+            password: userCredentials.password
+        }
+        axios.post('http://localhost:5000/api/login', user)
+            .then(response => localStorage.setItem('token', response.data.payload))
+            .catch(error => console.log(error.message))
+    }
 
-  const error = "";
-  //replace with error state
+    const handleChanges = (event) => {
+        setUserCredentials({
+            ...userCredentials,
+            [event.target.name]: event.target.value
+        })
+    }
 
   return (
     <div>
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
-        <h2>Build login form here</h2>
+        <h2> login form </h2>
+          <form onSubmit={handleSubmit}>
+              <label htmlFor="username">
+                  <input
+                      onChange={handleChanges}
+                      name='username'
+                      value={userCredentials.username}
+                      data-testid='username'
+                      placeholder='username here'
+                      type="text"/>
+              </label>
+              <label htmlFor="password">
+                  <input
+                      onChange={handleChanges}
+                      name='password'
+                      value={userCredentials.password}
+                      data-testid='password'
+                      placeholder='secret sauce here'
+                      type="password"/>
+              </label>
+              <button type={"submit"}> login </button>
+          </form>
       </div>
-
       <p data-testid="errorMessage" className="error">{error}</p>
     </div>
   );
