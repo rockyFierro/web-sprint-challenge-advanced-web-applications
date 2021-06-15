@@ -68,7 +68,8 @@ Your finished project must include all of the following requirements. **Unlike o
   result in state.
 * [x] In `BubblePage.js`, complete `saveEdit`, and `deleteColor` functions 
   to make API requests for to editing and delete data.
-* [ ] Watch and enjoy as your app responds to updates in the data. Check out `Bubbles.js` to see how this is built.
+* [x] Watch and enjoy as your app responds to updates in the data. Check out 
+  `Bubbles.js` to see how this is built.
 
 #### Testing
 * [ ] Finish the test in `Color.test.js`, `ColorList.test.js`, `BubblePage.test.js`. You will need to use rerendering, function mocking and spies in order to complete.
